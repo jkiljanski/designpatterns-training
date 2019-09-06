@@ -16,7 +16,7 @@ public class Cowboy {
 	public void water(){
 
 	}
-	public void cleanPoo(){
+	public void askToPoo(){
 
 	}
 }

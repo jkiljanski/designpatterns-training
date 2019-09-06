@@ -17,7 +17,7 @@ public class LazyCowWithCommandsTest {
 		cowboy.makeItRun();
 		cowboy.water();
 		cowboy.makeItRun();
-		cowboy.cleanPoo();
+		cowboy.askToPoo();
 
 		//then
 		assertThat(cow.getWeight()).isEqualTo(500);
