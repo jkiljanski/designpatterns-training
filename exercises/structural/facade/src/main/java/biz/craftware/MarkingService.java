@@ -1,8 +1,11 @@
 package biz.craftware;
 
-import biz.craftware.domain.farm.Animal;
+import biz.craftware.domain.farm.Cattle;
+import biz.craftware.domain.farm.Horse;
 
 public interface MarkingService {
 
-	void markCow(Animal cattle);
+	void markCow(Cattle cattle);
+
+	void mark(Horse horse);
 }

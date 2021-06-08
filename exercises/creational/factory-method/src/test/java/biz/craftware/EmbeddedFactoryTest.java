@@ -1,52 +1,52 @@
 package biz.craftware;
 
 import biz.craftware.domain.farm.Cattle;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EmbeddedFactoryTest {
 
-	@Test
-	public void createsBySimpleCall(){
-		//given
+    @Test
+    public void createsBySimpleCall() {
+        //given
 
-		//when
-		Cattle cattle = Cattle.createAnyCow();
+        //when
+        Cattle cattle = Cattle.createAnyCow();
 
-		//then
-		assertThat(cattle).isNotNull();
+        //then
+        assertThat(cattle).isNotNull();
 
-	}
+    }
 
-	@Test
-	public void createsByCallingNamedFactoryMethod(){
-		//given
+    @Test
+    public void createsByCallingNamedFactoryMethod() {
+        //given
 
-		//when
-		Cattle cattle = Cattle.createBlackAngusBull(700);
+        //when
+        Cattle cattle = Cattle.createBlackAngusBull(700);
 
-		//then
-		assertThat(cattle)
-				.hasFieldOrPropertyWithValue("weight", 700)
-				.hasFieldOrPropertyWithValue("sex", Cattle.Sex.BULL)
-				.hasFieldOrPropertyWithValue("breed", Cattle.Breed.ANGUS);
-	}
+        //then
+        assertThat(cattle)
+                .hasFieldOrPropertyWithValue("weight", 700)
+                .hasFieldOrPropertyWithValue("sex", Cattle.Sex.BULL)
+                .hasFieldOrPropertyWithValue("breed", Cattle.Breed.ANGUS);
+    }
 
-	@Test
-	public void createsByCallingOtherNamedFactoryMethod(){
-		//given
+    @Test
+    public void createsByCallingOtherNamedFactoryMethod() {
+        //given
 
-		//when
+        //when
 
-		Cattle cattle = Cattle.createStripedMilkCow(500);
+        Cattle cattle = Cattle.createStripedMilkCow(500);
 
-		//then
-		assertThat(cattle)
-				.hasFieldOrPropertyWithValue("weight", 500)
-				.hasFieldOrPropertyWithValue("sex", Cattle.Sex.COW)
-				.hasFieldOrPropertyWithValue("breed", Cattle.Breed.HOLSTEIN);
+        //then
+        assertThat(cattle)
+                .hasFieldOrPropertyWithValue("weight", 500)
+                .hasFieldOrPropertyWithValue("sex", Cattle.Sex.COW)
+                .hasFieldOrPropertyWithValue("breed", Cattle.Breed.HOLSTEIN);
 
-	}
+    }
 
 }

@@ -6,14 +6,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class ParcelSender {
 
-	private final Magazine magazine;
+	private final Warehouse warehouse;
 
 	@Autowired
-	public ParcelSender(Magazine magazine) {
-		this.magazine = magazine;
+	public ParcelSender(Warehouse warehouse) {
+		this.warehouse = warehouse;
 	}
 
 	public void send(Parcel pack){
-		magazine.putPackage(pack);
+		warehouse.putPackage(pack);
 	}
 }

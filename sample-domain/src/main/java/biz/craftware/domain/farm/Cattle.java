@@ -1,5 +1,10 @@
 package biz.craftware.domain.farm;
 
+import biz.craftware.domain.farm.food.Egg;
+import biz.craftware.domain.farm.food.Milk;
+
+import java.util.List;
+
 public class Cattle implements Animal{
 
 	public enum Breed {ABONDANCE, ANGUS, HOLSTEIN, RANDALL, REDPOOL;}
@@ -87,6 +92,10 @@ public class Cattle implements Animal{
 
 	public void changeWeight(int delta){
 		weight += delta;
+	}
+
+	public List<Milk> retrieveMilk(){
+		return null;
 	}
 
 	@Override

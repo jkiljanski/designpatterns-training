@@ -6,14 +6,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class ParcelReceiver {
 
-	private final Magazine magazine;
+	private final Warehouse warehouse;
 
 	@Autowired
-	public ParcelReceiver(Magazine magazine) {
-		this.magazine = magazine;
+	public ParcelReceiver(Warehouse warehouse) {
+		this.warehouse = warehouse;
 	}
 
 	public Parcel obtain(){
-		return magazine.getOldestPackage();
+		return warehouse.getOldestPackage();
 	}
 }

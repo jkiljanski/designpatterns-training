@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Component
-public class Magazine {
+public class Warehouse {
 
 	private ConcurrentLinkedQueue<Parcel> queue = new ConcurrentLinkedQueue<>();
 

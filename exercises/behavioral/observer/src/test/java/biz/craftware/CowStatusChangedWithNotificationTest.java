@@ -2,60 +2,60 @@ package biz.craftware;
 
 import biz.craftware.observers.CowNameObserver;
 import biz.craftware.observers.CowWeightObserver;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CowStatusChangedWithNotificationTest {
 
-	private CowWeightObserver cowWeightObserver;
-	private CowNameObserver cowNameObserver;
+    private CowWeightObserver cowWeightObserver;
+    private CowNameObserver cowNameObserver;
 
-	private ObservableCow observableCow;
+    private ObservableCow observableCow;
 
-	@BeforeMethod
-	public void attachObservers(){
-		cowWeightObserver = new CowWeightObserver();
-		cowNameObserver = new CowNameObserver();
-		observableCow = new ObservableCow(456, "Mucka");
-	}
+    @BeforeEach
+    public void attachObservers() {
+        cowWeightObserver = new CowWeightObserver();
+        cowNameObserver = new CowNameObserver();
+        observableCow = new ObservableCow(456, "Mucka");
+    }
 
-	@Test
-	public void nothingHappens(){
-		//given
+    @Test
+    public void nothingHappens() {
+        //given
 
-		//when
+        //when
 
-		//then
-		assertThat(cowWeightObserver.getLastObservation()).isEmpty();
-		assertThat(cowNameObserver.getLastObservation()).isEmpty();
+        //then
+        assertThat(cowWeightObserver.getLastObservation()).isEmpty();
+        assertThat(cowNameObserver.getLastObservation()).isEmpty();
 
-	}
+    }
 
-	@Test
-	public void weightChangedAndShouldOneObserverBeInformed(){
-		//given
-		observableCow.changeWeight(100);
+    @Test
+    public void weightChangedAndShouldOneObserverBeInformed() {
+        //given
+        observableCow.changeWeight(100);
 
-		//when
+        //when
 
-		//then
-		assertThat(cowWeightObserver.getLastObservation()).isEqualTo("Weight changed from 456 to 556");
-		assertThat(cowNameObserver.getLastObservation()).isEmpty();
+        //then
+        assertThat(cowWeightObserver.getLastObservation()).isEqualTo("Weight changed from 456 to 556");
+        assertThat(cowNameObserver.getLastObservation()).isEmpty();
 
-	}
+    }
 
-	@Test
-	public void nameChangedAndShouldOneObserverBeInformed(){
-		//given
-		observableCow.setName("Crazy Cow");
+    @Test
+    public void nameChangedAndShouldOneObserverBeInformed() {
+        //given
+        observableCow.setName("Crazy Cow");
 
-		//when
+        //when
 
-		//then
-		assertThat(cowWeightObserver.getLastObservation()).isEmpty();
-		assertThat(cowNameObserver.getLastObservation()).isEqualTo("Name changed from Mucka to Crazy Cow");
+        //then
+        assertThat(cowWeightObserver.getLastObservation()).isEmpty();
+        assertThat(cowNameObserver.getLastObservation()).isEqualTo("Name changed from Mucka to Crazy Cow");
 
-	}
+    }
 }

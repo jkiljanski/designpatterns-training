@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>biz.craftware.exercises.design.pattern</groupId>
-        <artifactId>parent</artifactId>
+        <artifactId>desingPatterns-training</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 

@@ -1,42 +1,58 @@
 package biz.craftware;
 
+import biz.craftware.domain.farm.Cattle;
+import biz.craftware.domain.farm.Chicken;
 import biz.craftware.domain.farm.Farm;
+import biz.craftware.domain.farm.food.Egg;
+import biz.craftware.domain.farm.food.Milk;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.testng.annotations.Test;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CreateFarmTest extends PatternsSpringTest{
+public class CreateFarmTest extends PatternsSpringTest {
 
-	@Autowired
-	FarmFactory farmFactory;
+    @Autowired
+    FarmFactory farmFactory;
 
-	@Test
-	public void createsSmallFarm(){
-		//given
+    Cattle milkProducer;
+    Chicken eggProducer;
 
-		//when
-		Farm farm = farmFactory.createSmallFarm("Pcim 123");
+    @Test
+    public void createsMilkBreakfast() {
+        //given
 
-		//then
-		assertThat(farm).isNotNull();
-		assertThat(farm.getAddress()).isEqualTo("Pcim 123");
-		assertThat(farm.getCattleHerd()).hasSize(2).allMatch(cattle -> cattle.getWeight()<300);
-		assertThat(farm.getHorseHerd()).hasSize(1).allMatch(horse -> horse.getWeight()<400);
-	}
+        //when
+        List<Milk> milks = milkProducer.retrieveMilk();
 
-	@Test
-	public void createsHugeFarm(){
-		//given
+        //then
+        assertThat(milks).hasSize(1);
+    }
 
-		//when
-		Farm farm = farmFactory.createHugeFarm("Megaville");
+    @Test
+    public void createsEggBreakfast() {
+        //given
 
-		//then
-		assertThat(farm).isNotNull();
-		assertThat(farm.getAddress()).isEqualTo("Megaville");
-		assertThat(farm.getCattleHerd()).hasSize(100).allMatch(cattle -> cattle.getWeight()>400);
-		assertThat(farm.getHorseHerd()).hasSize(50).allMatch(horse -> horse.getWeight()>450);
-	}
+        //when
+        List<Egg> eggs = eggProducer.retrieveEggs();
+
+        //then
+        assertThat(eggs).hasSize(3);
+    }
+
+    @Test
+    public void createsMixedBreakfast() {
+        //given
+
+        //when
+        List<Object> breakfast = null;
+        
+        //then
+        assertThat(breakfast).isOfAnyClassIn(Egg.class, Milk.class);
+    }
+
+
 
 }

@@ -1,8 +1,10 @@
 package biz.craftware;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -11,49 +13,46 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class MathCalculationTest extends PatternsSpringTest{
+public class MathCalculationTest extends PatternsSpringTest {
 
-	@Autowired
-	private Calculator calculator;
-	
-	@DataProvider
-	private Object[][] mathInputWithResult(){
-		return new Object[][]{
-				{generateMap(map("a", 5), map("b", 3), map("c", 6)), 13},
-				{generateMap(map("a", 1), map("b", 2), map("c", 8)), -2}
-		};
-	}
+    @Autowired
+    private Calculator calculator;
 
-	@Test(dataProvider = "mathInputWithResult")
-	public void calculateExpressionWithSampleValues(Map<String, Integer> values, int expectedResult){
-		//given
-		MathExpression expression = null;
+    public static Stream<Arguments> mathInputWithResult() {
+        return Stream.of(
+                Arguments.of(5,3,6,13),
+                Arguments.of(1,2,8,-2)
+        );
+    }
 
-		//when
-		int result = calculator.calculate(expression, values);
+    @ParameterizedTest(name = "#{index} - Test with a={0}, b={1}, c={2} should give {3}")
+    @MethodSource("mathInputWithResult")
+    public void calculateExpressionWithSampleValues(int a, int b, int c, int expectedResult) {
+        //given
+        Map<String, Integer> values = Map.of(
+                "a", a,
+                "b", b,
+                "c", c
+        );
+        MathExpression expression = null;
 
-		//then
-		assertThat(result).isEqualTo(expectedResult);
-		assertThat(expression.getNotation()).isEqualTo("(a*b)-(c/b)");
+        //when
+        int result = calculator.calculate(expression, values);
 
-	}
+        //then
+        assertThat(result).isEqualTo(expectedResult);
+        assertThat(expression.getNotation()).isEqualTo("(a*b)-(c/b)");
 
-	private static class Pair{
-		String key;
-		int value;
+    }
 
-		private Pair(String key, int value) {
-			this.key = key;
-			this.value = value;
-		}
+    private static class Pair {
+        String key;
+        int value;
 
-	}
+        private Pair(String key, int value) {
+            this.key = key;
+            this.value = value;
+        }
 
-	public static Pair map(String key, int value){
-		return new Pair(key, value);
-	}
-
-	private static Map<String, Integer> generateMap(Pair... pairs){
-		return Stream.of(pairs).collect(Collectors.toMap(pair -> pair.key, pair -> pair.value));
-	}
+    }
 }
